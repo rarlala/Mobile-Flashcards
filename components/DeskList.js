@@ -12,9 +12,11 @@ class DeskList extends Component {
         {Object.keys(desks).map((key) => {
           const { title, questions } = desks[key];
           return (
-            <View>
-              <Text>{title}</Text>
-              <Text>{Object.keys(questions).length}</Text>
+            <View style={styles.deskBox}>
+              <Text style={styles.title}>{title}</Text>
+              <Text style={styles.card}>
+                {Object.keys(questions).length} cards
+              </Text>
             </View>
           );
         })}
@@ -25,7 +27,21 @@ class DeskList extends Component {
 
 const styles = StyleSheet.create({
   deskBox: {
-    backgroundColor: 'yellow',
+    marginTop: 3,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: 'pink',
+  },
+  title: {
+    marginTop: 30,
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  card: {
+    marginBottom: 30,
+    textAlign: 'center',
+    fontSize: 12,
+    color: 'gray',
   },
 });
 
