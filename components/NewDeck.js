@@ -2,30 +2,58 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
   StyleSheet,
 } from 'react-native';
+import { getDesksInfo } from '../utils/helpers';
+import { getDecks, saveDeckTitle } from '../utils/api';
+
+import { connect } from 'react-redux';
+import { addDeck } from '../actions/index';
 
 class NewDeck extends Component {
   state = {
     input: '',
   };
 
+  handleTextChange = (input) => {
+    this.setState(() => ({
+      input,
+    }));
+  };
+
+  submit = () => {
+    const { deck } = this.input;
+    if (deck === '') {
+      return;
+    }
+
+    // Update Redux
+    this.props.dispatch(addDeck(deck));
+    // Navigate to home
+    // Save to 'DB'
+    saveDeckTitle(deck);
+    // Clear local notification
+  };
+
   render() {
     const { input } = this.state;
+
     return (
       <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.title}>What is the title of your new deck?</Text>
         <TextInput
           value={input}
+          onChangeText={this.handleTextChange}
           style={styles.input}
           placeholder="Deck Title"
         ></TextInput>
-        <TouchableHighlight style={styles.button}>
+        <Text>{this.state.input}</Text>
+        <TouchableOpacity onPress={this.submit} style={styles.button}>
           <Text style={{ color: 'white' }}>Submit</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     );
   }
@@ -63,4 +91,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewDeck;
+function mapStateToProps(state) {
+  return state;
+}
+
+export default connect(mapStateToProps)(NewDeck);

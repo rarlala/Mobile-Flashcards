@@ -3,16 +3,45 @@ import {
   View,
   Text,
   TextInput,
-  TouchableHighlight,
+  TouchableOpacity,
   KeyboardAvoidingView,
   StyleSheet,
 } from 'react-native';
+// import { getDesksInfo } from '../utils/helpers';
+
+function SubmitBtn({ onPress }) {
+  return (
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <Text style={{ color: 'white' }}>Submit</Text>
+    </TouchableOpacity>
+  );
+}
 
 class AddCard extends Component {
   state = {
     question: '',
     answer: '',
   };
+
+  // question = (decks, value) => {
+  //   const { deck } = getDesksInfo(decks);
+
+  //   this.setState(() => ({
+  //     ...state,
+  //     [decks]: value,
+  //   }));
+  // };
+
+  // submit = () => {
+  //   this.setState(() => ({
+  //     question: '',
+  //     answer: '',
+  //   }));
+
+  //   //  Navigate to home
+
+  //   // Clear local notification
+  // };
 
   render() {
     return (
@@ -22,9 +51,7 @@ class AddCard extends Component {
           placeholder="question"
         ></TextInput>
         <TextInput style={styles.input} placeholder="answer"></TextInput>
-        <TouchableHighlight style={styles.button}>
-          <Text style={{ color: 'white' }}>Submit</Text>
-        </TouchableHighlight>
+        <SubmitBtn />
       </KeyboardAvoidingView>
     );
   }
