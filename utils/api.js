@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-const STORAGE_KEY = 'mobile-flashcards:decks';
+export const STORAGE_KEY = 'mobile-flashcards:decks';
 
 const getDecks = () => {
   return AsyncStorage.getItem(STORAGE_KEY).then((results) => {
@@ -16,12 +16,12 @@ const getDeck = (id) => {
   });
 };
 
-const saveDeckTitle = (deck) => {
+const saveDeckTitle = ({ key, deck }) => {
   return AsyncStorage.mergeItem(
     STORAGE_KEY,
     JSON.stringify({
-      [deck]: {
-        deck: deck,
+      [key]: {
+        title: deck,
         questions: [],
       },
     })

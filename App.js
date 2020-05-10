@@ -4,13 +4,13 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 
-import NewDeck from './components/NewDeck';
+import DeskList from './components/DeskList';
 
 export default function App() {
   return (
     <Provider store={createStore(reducer)}>
       <View style={styles.container}>
-        <NewDeck />
+        <DeskList />
       </View>
     </Provider>
   );

@@ -1,9 +1,9 @@
-export const RECEIVE_ENTRIES = 'RECEIVE_ENTRIES';
+export const RECEIVE_DECKS = 'RECEIVE_DECKS';
 export const ADD_DECK = 'ADD_DECK';
 
-export function receiveEntries(decks) {
+export function receiveDecks(decks) {
   return {
-    type: RECEIVE_ENTRIES,
+    type: RECEIVE_DECKS,
     decks,
   };
 }

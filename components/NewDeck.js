@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   StyleSheet,
 } from 'react-native';
-import { getDesksInfo } from '../utils/helpers';
+import { getDesksInfo, timeToString } from '../utils/helpers';
 import { getDecks, saveDeckTitle } from '../utils/api';
 
 import { connect } from 'react-redux';
@@ -25,16 +25,21 @@ class NewDeck extends Component {
   };
 
   submit = () => {
-    const { deck } = this.input;
+    const key = timeToString();
+    const { deck } = this.state.input;
     if (deck === '') {
       return;
     }
 
     // Update Redux
-    this.props.dispatch(addDeck(deck));
+    this.props.dispatch(addDeck({ [key]: deck }));
+
+    this.setState(() => ({
+      input: '',
+    }));
     // Navigate to home
     // Save to 'DB'
-    saveDeckTitle(deck);
+    saveDeckTitle({ key, deck });
     // Clear local notification
   };
 
@@ -50,7 +55,7 @@ class NewDeck extends Component {
           style={styles.input}
           placeholder="Deck Title"
         ></TextInput>
-        <Text>{this.state.input}</Text>
+        <Text>{JSON.stringify(getDesksInfo())}</Text>
         <TouchableOpacity onPress={this.submit} style={styles.button}>
           <Text style={{ color: 'white' }}>Submit</Text>
         </TouchableOpacity>
@@ -65,9 +70,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    marginTop: 100,
-    marginBottom: 50,
-    fontSize: 60,
+    marginTop: 250,
+    marginBottom: 30,
+    fontSize: 25,
     textAlign: 'center',
   },
   input: {
@@ -78,12 +83,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginLeft: 20,
     marginRight: 20,
-    padding: 5,
+    padding: 10,
   },
   button: {
-    width: 150,
-    height: 60,
-    marginTop: 50,
+    width: 200,
+    height: 50,
+    marginTop: 20,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -92,7 +97,10 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return state;
+  const key = timeToString();
+  return {
+    key,
+  };
 }
 
 export default connect(mapStateToProps)(NewDeck);
