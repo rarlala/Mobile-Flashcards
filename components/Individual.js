@@ -17,16 +17,19 @@ class DeskList extends Component {
           {Object.keys(desk['questions']).length} cards
         </Text>
         <TouchableOpacity
-          onPress={this.addCard}
+          onPress={() => this.props.navigation.navigate('AddCard')}
           style={[styles.button, styles.addCard]}
         >
           <Text>Add Card</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={this.addCard}
+          onPress={() => this.props.navigation.navigate('Quiz')}
           style={[styles.button, styles.startQuiz]}
         >
           <Text style={{ color: 'white' }}>Start Quiz</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.delete}>
+          <Text style={{ color: 'red' }}>Delete Deck</Text>
         </TouchableOpacity>
       </View>
     );
@@ -60,6 +63,10 @@ const styles = StyleSheet.create({
   },
   startQuiz: {
     backgroundColor: 'black',
+  },
+  delete: {
+    color: 'red',
+    marginTop: 30,
   },
 });
 

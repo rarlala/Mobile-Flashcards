@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   number: {
     alignSelf: 'flex-start',
     marginTop: 20,
+    marginLeft: 20,
   },
   title: {
     marginBottom: 20,

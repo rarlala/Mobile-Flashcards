@@ -7,6 +7,7 @@ import reducer from './reducers';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import DeskList from './components/DeskList';
 import AddCard from './components/AddCard';
@@ -14,22 +15,29 @@ import NewDeck from './components/NewDeck';
 import Quiz from './components/Quiz';
 import Individual from './components/Individual';
 
-const Tabs =
-  Platform.OS === 'ios'
-    ? createBottomTabNavigator()
-    : createMaterialTopTabNavigator();
+const Tabs = createBottomTabNavigator();
+
+const HomeStack = createStackNavigator();
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Desks" component={DeskList} />
+      <HomeStack.Screen name="Individual" component={Individual} />
+      <HomeStack.Screen name="Quiz" component={Quiz} />
+      <HomeStack.Screen name="AddCard" component={AddCard} />
+    </HomeStack.Navigator>
+  );
+}
 
 export default function App() {
   return (
     <Provider store={createStore(reducer)}>
       <View style={styles.container}>
         <NavigationContainer>
-          <Tabs.Navigator initialRouteName="DeckList">
-            <Tabs.Screen name="DeckList" component={DeskList} />
-            <Tabs.Screen name="AddCard" component={AddCard} />
-            <Tabs.Screen name="NewDeck" component={NewDeck} />
-            <Tabs.Screen name="Quiz" component={Quiz} />
-            <Tabs.Screen name="Individual" component={Individual} />
+          <Tabs.Navigator>
+            <Tabs.Screen name="DECKS" component={HomeStackScreen} />
+            <Tabs.Screen name="New Deck" component={NewDeck} />
           </Tabs.Navigator>
         </NavigationContainer>
       </View>
@@ -41,6 +49,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: 30,
   },
 });

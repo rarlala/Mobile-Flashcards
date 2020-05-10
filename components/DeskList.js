@@ -15,13 +15,12 @@ class DeskList extends Component {
 
     return (
       <View>
-        <Text>DeskList</Text>
         {Object.keys(desks).map((key) => {
           const { title, questions } = desks[key];
           return (
             <TouchableOpacity
               style={styles.deskBox}
-              onPress={() => console.log('Pressed!')}
+              onPress={() => this.props.navigation.navigate('Individual')}
             >
               <Text style={styles.title}>{title}</Text>
               <Text style={styles.card}>
