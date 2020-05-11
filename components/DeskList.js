@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-// import { receiveDecks, addDesk } from '../actions';
+import { receiveDecks } from '../actions';
 import { timeToString, getDesksInfo } from '../utils/helpers';
 import { AppLoading } from 'expo';
 
 class DeskList extends Component {
   componentDidMount() {
-    const { dispatch } = this.props;
+    this.props.initilizeData();
   }
 
   render() {
@@ -57,8 +57,16 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(decks) {
-  return { decks };
+// function mapStateToProps(decks) {
+//   return { decks };
+// }
+
+function mapDispatchProps(dispatch) {
+  return {
+    initilizeData: () => {
+      dispatch(receiveDecks());
+    },
+  };
 }
 
-export default connect(mapStateToProps)(DeskList);
+export default connect(null, mapDispatchProps)(DeskList);

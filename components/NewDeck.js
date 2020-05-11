@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import {
-  View,
   Text,
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
   StyleSheet,
 } from 'react-native';
-import { getDesksInfo, timeToString } from '../utils/helpers';
+import { getDesksInfo, generateUID } from '../utils/helpers';
 import { getDecks, saveDeckTitle } from '../utils/api';
 
 import { connect } from 'react-redux';
-import { addDeck } from '../actions/index';
+import { handleAddDeck } from '../actions/index';
 
 class NewDeck extends Component {
   state = {
@@ -24,22 +23,28 @@ class NewDeck extends Component {
     }));
   };
 
-  submit = () => {
-    const key = timeToString();
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('NewDesk submit');
+
     const { deck } = this.state.input;
+    const id = generateUID();
+
     if (deck === '') {
-      return;
+      return console.log('desk is none');
     }
 
     // Update Redux
-    this.props.dispatch(addDeck({ [key]: deck }));
+    this.props.dispatch(handleAddDeck(id, deck));
 
     this.setState(() => ({
       input: '',
     }));
     // Navigate to home
     // Save to 'DB'
-    saveDeckTitle({ key, deck });
+
+    // saveDeckTitle({ id, deck });
+
     // Clear local notification
   };
 
@@ -56,7 +61,8 @@ class NewDeck extends Component {
           placeholder="Deck Title"
         ></TextInput>
         <Text>{JSON.stringify(getDesksInfo())}</Text>
-        <TouchableOpacity onPress={this.submit} style={styles.button}>
+        <Text>{JSON.stringify(generateUID())}</Text>
+        <TouchableOpacity onPress={this.handleSubmit} style={styles.button}>
           <Text style={{ color: 'white' }}>Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -97,7 +103,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  const key = timeToString();
+  const key = generateUID();
   return {
     key,
   };

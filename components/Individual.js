@@ -7,14 +7,14 @@ class DeskList extends Component {
   startQuiz({}) {}
 
   render() {
-    const key = 'one';
-    const desk = getDesksInfo(key);
+    const id = '1zarxzbt8054moyp60e1pr';
+    const desk = getDesksInfo();
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{desk['title']}</Text>
+        <Text style={styles.title}>{desk[id]['title']}</Text>
         <Text style={styles.card}>
-          {Object.keys(desk['questions']).length} cards
+          {Object.keys(desk[id]['questions']).length} cards
         </Text>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('AddCard')}

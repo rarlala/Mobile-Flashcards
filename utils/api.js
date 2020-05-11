@@ -12,15 +12,15 @@ const getDeck = (id) => {
   return AsyncStorage.getItem(STORAGE_KEY).then((results) => {
     const obj = JSON.parse(results);
     return obj[id];
-    // return results === null ? {} : JSON.parse(results);
   });
 };
 
-const saveDeckTitle = ({ key, deck }) => {
+const saveDeckTitle = ({ id, deck }) => {
   return AsyncStorage.mergeItem(
     STORAGE_KEY,
     JSON.stringify({
-      [key]: {
+      [id]: {
+        id: id,
         title: deck,
         questions: [],
       },
@@ -29,7 +29,3 @@ const saveDeckTitle = ({ key, deck }) => {
 };
 
 export { getDecks, getDeck, saveDeckTitle };
-
-// export function submitEntry({ entry, key }) {
-//   return AsyncStorage.mergeItem(JSON.stringify({ [key]: entry }));
-// }

@@ -1,29 +1,27 @@
-import React from 'react';
-
-export function getDesksInfo(deck) {
-  const decks = {
-    one: {
-      title: 'one',
-      questions: {
-        one_question1: 'one_answer1',
-        one_question2: 'one_answer2',
-      },
+export function getDesksInfo() {
+  return {
+    '1zarxzbt8054moyp60e1pr': {
+      id: '1zarxzbt8054moyp60e1pr',
+      title: 'HTML',
+      questions: [
+        { question: '<header>', answer: 'header area tag' },
+        { question: 'what is this?', answer: 'this is nothing' },
+      ],
     },
-    two: {
-      title: 'two',
-      questions: {
-        two_question1: 'two_answer1',
-      },
+    '1wl8dk7vwzpp7s9b4wdacp': {
+      id: '1wl8dk7vwzpp7s9b4wdacp',
+      title: 'CSS',
+      questions: [
+        { question: 'overflow:hidden', answer: 'overflow hidden' },
+        { question: 'what is this?', answer: 'this is nothing' },
+      ],
     },
   };
-
-  return typeof deck === 'undefined' ? decks : decks[deck];
 }
 
-export function timeToString(time = Date.now()) {
-  const date = new Date(time);
-  const todayUTC = new Date(
-    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+export function generateUID() {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
   );
-  return todayUTC.toISOString().split('T')[0];
 }
