@@ -3,7 +3,7 @@ import { StyleSheet, Platform, View, StatusBar } from 'react-native';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
-import middleware from './middleware'
+import middleware from './middleware';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';

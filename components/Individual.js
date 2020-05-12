@@ -12,8 +12,6 @@ class DeskList extends Component {
   // }
 
   render() {
-    console.log('여기는 individual', this.props);
-
     const { title } = this.props.route.params;
     const questions = this.props.decks[title].questions;
 
@@ -33,7 +31,12 @@ class DeskList extends Component {
           <Text>Add Card</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Quiz')}
+          onPress={() =>
+            this.props.navigation.navigate('Quiz', {
+              title,
+              questions,
+            })
+          }
           style={[styles.button, styles.startQuiz]}
         >
           <Text style={{ color: 'white' }}>Start Quiz</Text>
