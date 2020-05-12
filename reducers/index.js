@@ -1,6 +1,6 @@
-import { RECEIVE_DECKS, ADD_DECK } from '../actions/index';
+import { RECEIVE_DECKS, ADD_DECK, REMOVE_DECK } from '../actions/index';
 
-function entries(state = {}, action) {
+function entries(state = [], action) {
   switch (action.type) {
     case RECEIVE_DECKS:
       return {
@@ -16,6 +16,14 @@ function entries(state = {}, action) {
           questions: [],
         },
       };
+    case REMOVE_DECK:
+      // console.log('=================================');
+      // console.log('state', state);
+      // console.log('delete state', delete state[action.title]);
+      // console.log('state', state);
+      // console.log('=================================');
+      delete state[action.title];
+      return state;
     default:
       return state;
   }

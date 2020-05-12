@@ -1,23 +1,36 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { getDesksInfo } from '../utils/helpers';
+import { handleRemoveDeck } from '../actions/index';
+import { connect } from 'react-redux';
 
 class DeskList extends Component {
-  addCard({}) {}
-  startQuiz({}) {}
+  // addCard({}) {}
+  // startQuiz({}) {}
+
+  handleRemove() {
+    const { title } = this.props.route.params;
+
+    console.log('delete 실행');
+
+    this.props.dispatch(handleRemoveDeck(title));
+
+    this.props.navigation.goBack();
+  }
 
   render() {
-    const id = '1zarxzbt8054moyp60e1pr';
-    const desk = getDesksInfo();
+    const { title, questions } = this.props.route.params;
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{desk[id]['title']}</Text>
-        <Text style={styles.card}>
-          {Object.keys(desk[id]['questions']).length} cards
-        </Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.card}>{questions.length} cards</Text>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('AddCard')}
+          onPress={() =>
+            this.props.navigation.navigate('AddCard', {
+              title,
+              questions,
+            })
+          }
           style={[styles.button, styles.addCard]}
         >
           <Text>Add Card</Text>
@@ -28,7 +41,10 @@ class DeskList extends Component {
         >
           <Text style={{ color: 'white' }}>Start Quiz</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.delete}>
+        <TouchableOpacity
+          style={styles.delete}
+          onPress={(title) => this.handleRemove(title)}
+        >
           <Text style={{ color: 'red' }}>Delete Deck</Text>
         </TouchableOpacity>
       </View>
@@ -70,4 +86,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DeskList;
+function mapStateToProps(desks) {
+  return desks;
+}
+
+export default connect(mapStateToProps)(DeskList);

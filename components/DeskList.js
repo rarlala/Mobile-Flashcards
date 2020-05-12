@@ -18,9 +18,12 @@ class DeskList extends Component {
           return (
             <TouchableOpacity
               style={styles.deskBox}
-              onPress={() => this.props.navigation.navigate('Individual'),{
-                title, questions
-              }}
+              onPress={() =>
+                this.props.navigation.navigate('Individual', {
+                  title,
+                  questions,
+                })
+              }
             >
               <Text style={styles.title}>{title}</Text>
               <Text style={styles.card}>
@@ -29,6 +32,7 @@ class DeskList extends Component {
             </TouchableOpacity>
           );
         })}
+        <Text>{JSON.stringify(desk)}</Text>
       </View>
     );
   }
