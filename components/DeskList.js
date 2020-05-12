@@ -17,11 +17,12 @@ class DeskList extends Component {
           const { title, questions } = desk[key];
           return (
             <TouchableOpacity
+              key={key}
               style={styles.deskBox}
               onPress={() =>
                 this.props.navigation.navigate('Individual', {
                   title,
-                  questions,
+                  // questions,
                 })
               }
             >
@@ -32,7 +33,7 @@ class DeskList extends Component {
             </TouchableOpacity>
           );
         })}
-        <Text>{JSON.stringify(desk)}</Text>
+        <Text>{JSON.stringify(this.props)}</Text>
       </View>
     );
   }

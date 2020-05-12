@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { handleRemoveDeck } from '../actions/index';
+import { handleReceiveDesks } from '../actions/index';
 import { connect } from 'react-redux';
 
 class DeskList extends Component {
-  // addCard({}) {}
-  // startQuiz({}) {}
-
-  handleRemove() {
-    const { title } = this.props.route.params;
-
-    console.log('delete 실행');
-
-    this.props.dispatch(handleRemoveDeck(title));
-
-    this.props.navigation.goBack();
-  }
+  // handleRemove() {
+  //   const { title } = this.props.route.params;
+  //   console.log('delete 실행');
+  //   this.props.dispatch(handleRemoveDeck(title));
+  //   this.props.navigation.goBack();
+  // }
 
   render() {
-    const { title, questions } = this.props.route.params;
+    const { title } = this.props.route.params;
+    const questions = this.props.decks[title].questions;
 
     return (
       <View style={styles.container}>
@@ -41,12 +36,12 @@ class DeskList extends Component {
         >
           <Text style={{ color: 'white' }}>Start Quiz</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.delete}
           onPress={(title) => this.handleRemove(title)}
         >
           <Text style={{ color: 'red' }}>Delete Deck</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }
@@ -86,8 +81,16 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(desks) {
-  return desks;
+function mapStateToProps(decks) {
+  return { decks };
 }
 
-export default connect(mapStateToProps)(DeskList);
+function mapDispatchProps(dispatch) {
+  return {
+    initilizeData: () => {
+      dispatch(handleReceiveDesks());
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchProps)(DeskList);

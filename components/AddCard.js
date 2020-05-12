@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
 import {
-  View,
   Text,
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
   StyleSheet,
 } from 'react-native';
-// import { getDesksInfo } from '../utils/helpers';
 
-function SubmitBtn({ onPress }) {
-  return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={{ color: 'white' }}>Submit</Text>
-    </TouchableOpacity>
-  );
-}
+import { connect } from 'react-redux';
+import { handleAddCard } from '../actions/index';
 
 class AddCard extends Component {
   state = {
@@ -23,35 +16,55 @@ class AddCard extends Component {
     answer: '',
   };
 
-  // question = (decks, value) => {
-  //   const { deck } = getDesksInfo(decks);
+  handleQuestionChange = (question) => {
+    this.setState(() => ({
+      question,
+    }));
+  };
 
-  //   this.setState(() => ({
-  //     ...state,
-  //     [decks]: value,
-  //   }));
-  // };
+  handleAnswerChange = (answer) => {
+    this.setState(() => ({
+      answer,
+    }));
+  };
 
-  // submit = () => {
-  //   this.setState(() => ({
-  //     question: '',
-  //     answer: '',
-  //   }));
+  handleSubmit = () => {
+    const { question, answer } = this.state;
 
-  //   //  Navigate to home
+    const title = this.props.route.params['title'];
+    const card = { question, answer };
 
-  //   // Clear local notification
-  // };
+    if (question !== '' && answer != '') {
+      this.props.createCard(title, card);
+    }
+
+    this.setState(() => ({
+      question: '',
+      answer: '',
+    }));
+
+    this.props.navigation.goBack();
+  };
 
   render() {
+    const { question, answer } = this.state;
     return (
       <KeyboardAvoidingView style={styles.container}>
         <TextInput
-          style={[styles.input, { marginTop: 50 }]}
+          value={question}
+          onChangeText={this.handleQuestionChange}
           placeholder="question"
+          style={[styles.input, { marginTop: 50 }]}
         ></TextInput>
-        <TextInput style={styles.input} placeholder="answer"></TextInput>
-        <SubmitBtn />
+        <TextInput
+          value={answer}
+          onChangeText={this.handleAnswerChange}
+          placeholder="answer"
+          style={styles.input}
+        ></TextInput>
+        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
+          <Text style={{ color: 'white' }}>Submit</Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     );
   }
@@ -71,7 +84,8 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 50,
-    padding: 5,
+    padding: 10,
+    fontSize: 20,
   },
   button: {
     width: 150,
@@ -83,4 +97,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddCard;
+function mapStateToProps(desks) {
+  return desks;
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  createCard: (title, card) => dispatch(handleAddCard(title, card)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddCard);
