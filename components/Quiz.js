@@ -47,7 +47,7 @@ class DeskList extends Component {
   };
 
   render() {
-    const { title, questions } = this.props.route.params;
+    const { questions } = this.props.route.params;
     const quest_total_num = Object.keys(questions).length;
 
     const { quest_num, pass, viewState } = this.state;
@@ -168,7 +168,6 @@ const styles = StyleSheet.create({
   },
   restart: {
     backgroundColor: 'black',
-    color: 'white',
   },
   back: {
     backgroundColor: 'gray',

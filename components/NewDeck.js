@@ -28,11 +28,9 @@ class NewDeck extends Component {
     if (input === '') {
       return console.log('desk is none');
     } else {
-      // Update Redux
       this.props.dispatch(handleAddDeck(input));
       await saveDeckTitle(input);
 
-      // Navigate to home
       this.props.navigation.navigate('Individual', {
         title: this.state.input,
       });
@@ -41,12 +39,6 @@ class NewDeck extends Component {
         input: '',
       }));
     }
-
-    // Save to 'DB'
-
-    // saveDeckTitle({ deck });
-
-    // Clear local notification
   };
 
   render() {
