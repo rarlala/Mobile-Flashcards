@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { receiveDecks } from '../actions';
-import { timeToString, getDesksInfo } from '../utils/helpers';
-import { AppLoading } from 'expo';
+import { handleReceiveDesks } from '../actions';
 
 class DeskList extends Component {
   componentDidMount() {
@@ -11,16 +9,18 @@ class DeskList extends Component {
   }
 
   render() {
-    const desks = getDesksInfo();
+    const desk = Object.values(this.props.decks);
 
     return (
       <View>
-        {Object.keys(desks).map((key) => {
-          const { title, questions } = desks[key];
+        {Object.keys(desk).map((key) => {
+          const { title, questions } = desk[key];
           return (
             <TouchableOpacity
               style={styles.deskBox}
-              onPress={() => this.props.navigation.navigate('Individual')}
+              onPress={() => this.props.navigation.navigate('Individual'),{
+                title, questions
+              }}
             >
               <Text style={styles.title}>{title}</Text>
               <Text style={styles.card}>
@@ -57,16 +57,16 @@ const styles = StyleSheet.create({
   },
 });
 
-// function mapStateToProps(decks) {
-//   return { decks };
-// }
+function mapStateToProps(decks) {
+  return { decks };
+}
 
 function mapDispatchProps(dispatch) {
   return {
     initilizeData: () => {
-      dispatch(receiveDecks());
+      dispatch(handleReceiveDesks());
     },
   };
 }
 
-export default connect(null, mapDispatchProps)(DeskList);
+export default connect(mapStateToProps, mapDispatchProps)(DeskList);

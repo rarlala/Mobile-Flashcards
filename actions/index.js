@@ -1,8 +1,10 @@
-import { saveDeckTitle } from '../utils/api';
+import { saveDeckTitle, getDecks } from '../utils/api';
 
+// action
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
 export const ADD_DECK = 'ADD_DECK';
 
+// action creator
 export function receiveDecks(decks) {
   return {
     type: RECEIVE_DECKS,
@@ -10,22 +12,23 @@ export function receiveDecks(decks) {
   };
 }
 
-function addDeck(deck) {
+function addDeck(title) {
   return {
     type: ADD_DECK,
-    deck,
+    title,
   };
 }
 
-export function handleAddDeck(id, desk) {
+export function handleReceiveDesks(){
   return (dispatch) => {
-    // const { desks } = getState();
+    return getDecks().then(data=>{
+      dispatch(receiveDecks(data))
+    })
+  }
+}
 
-    // dispatch(showLoading());
-
-    return saveDeckTitle({
-      id,
-      desk,
-    }).then((desk) => dispatch(addDeck(desk)));
+export function handleAddDeck(input) {
+  return (dispatch) => { 
+    return saveDeckTitle(input).then(() => dispatch(addDeck(input)));
   };
 }

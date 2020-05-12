@@ -3,6 +3,7 @@ import { StyleSheet, Platform, View, StatusBar } from 'react-native';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
+import middleware from './middleware'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -32,7 +33,7 @@ function HomeStackScreen() {
 
 export default function App() {
   return (
-    <Provider store={createStore(reducer)}>
+    <Provider store={createStore(reducer, middleware)}>
       <View style={styles.container}>
         <NavigationContainer>
           <Tabs.Navigator>
