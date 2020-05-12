@@ -12,6 +12,8 @@ class DeskList extends Component {
   // }
 
   render() {
+    console.log('여기는 individual', this.props);
+
     const { title } = this.props.route.params;
     const questions = this.props.decks[title].questions;
 

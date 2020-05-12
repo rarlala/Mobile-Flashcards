@@ -9,6 +9,7 @@ import {
 
 import { connect } from 'react-redux';
 import { handleAddDeck } from '../actions/index';
+import { saveDeckTitle } from '../utils/api';
 
 class NewDeck extends Component {
   state = {
@@ -21,7 +22,7 @@ class NewDeck extends Component {
     }));
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     const { input } = this.state;
 
     if (input === '') {
@@ -29,13 +30,16 @@ class NewDeck extends Component {
     } else {
       // Update Redux
       this.props.dispatch(handleAddDeck(input));
-  
+      await saveDeckTitle(input);
+
+      // Navigate to home
+      this.props.navigation.navigate('Individual', {
+        title: this.state.input,
+      });
+
       this.setState(() => ({
         input: '',
       }));
-
-      // Navigate to home
-      this.props.navigation.goBack()
     }
 
     // Save to 'DB'
