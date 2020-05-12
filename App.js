@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Platform, View, StatusBar } from 'react-native';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -16,6 +16,8 @@ import NewDeck from './components/NewDeck';
 import Quiz from './components/Quiz';
 import Individual from './components/Individual';
 
+import { setLocalNotification } from './utils/helpers';
+
 const Tabs = createBottomTabNavigator();
 
 const HomeStack = createStackNavigator();
@@ -31,19 +33,24 @@ function HomeStackScreen() {
   );
 }
 
-export default function App() {
-  return (
-    <Provider store={createStore(reducer, middleware)}>
-      <View style={styles.container}>
-        <NavigationContainer>
-          <Tabs.Navigator>
-            <Tabs.Screen name="DECKS" component={HomeStackScreen} />
-            <Tabs.Screen name="New Deck" component={NewDeck} />
-          </Tabs.Navigator>
-        </NavigationContainer>
-      </View>
-    </Provider>
-  );
+export default class App extends Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+  render() {
+    return (
+      <Provider store={createStore(reducer, middleware)}>
+        <View style={styles.container}>
+          <NavigationContainer>
+            <Tabs.Navigator>
+              <Tabs.Screen name="DECKS" component={HomeStackScreen} />
+              <Tabs.Screen name="New Deck" component={NewDeck} />
+            </Tabs.Navigator>
+          </NavigationContainer>
+        </View>
+      </Provider>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
