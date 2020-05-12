@@ -9,18 +9,32 @@ const NOTIFICATION_KEY = 'MobileFlashCard:notifications';
 export const DECK_STORAGE_KEY = 'MOBILE_CARD';
 
 export const decks = {
-  HTML: {
-    title: 'HTML',
+  Nonsense: {
+    title: 'Nonsense',
     questions: [
-      { question: '<header>', answer: 'header area tag' },
-      { question: 'what is this?', answer: 'this is nothing' },
+      {
+        question: 'Why Was 6 Afraid Of 7?',
+        answer: 'Because 789!',
+      },
+      {
+        question: 'If You Say It You Break It. What Is It?',
+        answer: 'Silence',
+      },
     ],
   },
-  CSS: {
-    title: 'CSS',
+  React: {
+    title: 'React',
     questions: [
-      { question: 'overflow:hidden', answer: 'overflow hidden' },
-      { question: 'what is this?', answer: 'this is nothing' },
+      {
+        question: 'How does react work?',
+        answer:
+          'React is a JavaScript library (not a framework) that creates user interfaces (UIs) in a predictable and efficient way using declarative code',
+      },
+      {
+        question: 'Where is react used?',
+        answer:
+          'ReactJs is an open-source JavaScript library that is used to build user interfaces specifically. This is usually used for single-page applications. It is used to handle all views of an application for any web or mobile application. It is also used to reuse UI components.',
+      },
     ],
   },
 };

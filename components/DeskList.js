@@ -22,7 +22,6 @@ class DeskList extends Component {
               onPress={() =>
                 this.props.navigation.navigate('Individual', {
                   title,
-                  // questions,
                 })
               }
             >
@@ -33,7 +32,6 @@ class DeskList extends Component {
             </TouchableOpacity>
           );
         })}
-        <Text>{JSON.stringify(this.props)}</Text>
       </View>
     );
   }
