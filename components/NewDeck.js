@@ -25,7 +25,7 @@ class NewDeck extends Component {
   handleSubmit = async (e) => {
     const { input } = this.state;
 
-    if (input === '') {
+    if (!input) {
       return console.log('desk is none');
     } else {
       this.props.dispatch(handleAddDeck(input));
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(desks) {
-  return desks;
+  return {desks};
 }
 
 export default connect(mapStateToProps)(NewDeck);

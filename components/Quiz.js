@@ -69,7 +69,7 @@ class DeskList extends Component {
           </TouchableHighlight>
           <TouchableHighlight
             style={[styles.button, styles.back]}
-            onPress={() => this.props.navigation.navigate('Desks')}
+            onPress={() => this.props.navigation.navigate('Individual')}
           >
             <Text style={{ color: 'white' }}>BACK TO DECK</Text>
           </TouchableHighlight>

@@ -1,9 +1,14 @@
 import { AsyncStorage } from 'react-native';
 import { DECK_STORAGE_KEY, decks } from './helpers';
 
+// export function deleteAllDecks(){
+//   return AsyncStorage.clear(DECK_STORAGE_KEY)
+// }
+
 export function getDecks() {
+  // return AsyncStorage.getItem(DECK_STORAGE_KEY).then((results)=>console.log(results))
   return AsyncStorage.getItem(DECK_STORAGE_KEY).then((results) =>
-    results.id === undefined ? decks : JSON.parse(results)
+    results === null ? decks : JSON.parse(results)
   );
 }
 

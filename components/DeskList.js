@@ -8,6 +8,8 @@ import {
   setLocalNotification,
 } from '../utils/helpers';
 
+// import {deleteAllDecks} from '../utils/api';
+
 class DeskList extends Component {
   componentDidMount() {
     this.props.initilizeData();
@@ -73,6 +75,9 @@ function mapStateToProps(decks) {
 
 function mapDispatchProps(dispatch) {
   return {
+    // resetData: () => {
+    //   dispatch(deleteAllDecks());
+    // },
     initilizeData: () => {
       dispatch(handleReceiveDesks());
     },
