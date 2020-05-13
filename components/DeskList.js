@@ -3,13 +3,20 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { handleReceiveDesks } from '../actions';
 
+import {
+  clearLocalNotification,
+  setLocalNotification,
+} from '../utils/helpers';
+
 class DeskList extends Component {
   componentDidMount() {
     this.props.initilizeData();
   }
 
   render() {
-    const desk = Object.values(this.props.decks);
+    const desk = Object.values(this.props.decks);    
+    
+    clearLocalNotification().then(setLocalNotification);
 
     return (
       <View>

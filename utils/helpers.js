@@ -1,4 +1,3 @@
-import React from 'react';
 import { AsyncStorage } from 'react-native';
 
 import { Notifications } from 'expo';
@@ -42,12 +41,6 @@ export const decks = {
 export const setStorage = () => {
   AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(decks));
 };
-
-export function getDailyReminderValue() {
-  return {
-    today: "Don't forget Quiz!",
-  };
-}
 
 export function clearLocalNotification() {
   return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
